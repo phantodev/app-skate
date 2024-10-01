@@ -12,8 +12,8 @@ import Toast from "react-native-toast-message";
 import React from "react";
 import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "../configs/firebase";
-import { ReactQueryProvider } from "@/components/ReactQueryProvider";
 import "../configs/ReactotronConfig";
+import { ReactQueryProvider } from "./components/ReactQueryProvider";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

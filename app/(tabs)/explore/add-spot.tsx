@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   ActivityIndicator,
+  Modal,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { db } from "@/configs/firebase";
@@ -12,6 +13,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
 import { useMutation } from "@tanstack/react-query";
+import ImagePickerModal from "@/app/components/ImagePickerModal";
 
 type FormData = {
   spotName: string;
@@ -20,8 +22,10 @@ type FormData = {
   state: string;
 };
 
-export default function Signup() {
+export default function AddSpotScreen() {
   const [status, setStatus] = React.useState(false);
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [selectedImages, setSelectedImages] = React.useState<string[]>([]);
   const router = useRouter();
   const {
     control,
@@ -59,8 +63,17 @@ export default function Signup() {
     },
   });
 
+  function handleImagesSelected() {
+    console.log("ENTROU AQUI");
+  }
+
   return (
     <View className="flex-1 items-center justify-center bg-white dark:bg-slate-700">
+      <ImagePickerModal
+        visible={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onImageSelected={handleImagesSelected}
+      />
       <View className="flex flex-col p-10 w-full">
         <Controller
           name="spotName"
@@ -188,6 +201,14 @@ export default function Signup() {
             </View>
           )}
         />
+        <TouchableHighlight
+          className="w-full rounded-lg p-5 mt-4 mb-4 bg-slate-800"
+          onPress={() => setModalOpen(true)}
+        >
+          <Text className="text-white text-center font-semibold">
+            Escolher fotos do Spot
+          </Text>
+        </TouchableHighlight>
         <TouchableHighlight
           className="w-full rounded-lg p-5 mt-4 mb-4 bg-slate-800"
           onPress={handleSubmit((data: FormData) => mutation.mutate(data))}
