@@ -14,6 +14,13 @@ import { onAuthStateChanged, User } from "firebase/auth";
 import { auth } from "../configs/firebase";
 import "../configs/ReactotronConfig";
 import { ReactQueryProvider } from "./components/ReactQueryProvider";
+// import { connectToDevTools } from "react-devtools-core";
+// if (__DEV__) {
+//   connectToDevTools({
+//     host: "localhost",
+//     port: 8097,
+//   });
+// }
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

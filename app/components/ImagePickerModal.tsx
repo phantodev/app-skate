@@ -40,9 +40,29 @@ export default function ImagePickerModal(props: ImagePickerModalProps) {
     }
   };
 
+  const takePhoto = async () => {
+    let result = await ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsMultipleSelection: true,
+      aspect: [4, 3],
+      quality: 0.8,
+    });
+    if (!result.canceled) {
+      setImages((prevImages) => [
+        ...prevImages,
+        ...result.assets.map((asset) => asset.uri),
+      ]);
+    }
+  };
+
   const removeImage = (index: number) => {
     setImages((prevImages) => prevImages.filter((_, i) => i !== index));
   };
+
+  function handleUpdateImages() {
+    props.onImageSelected(images);
+    props.onClose();
+  }
 
   return (
     <Modal animationType="slide" transparent={false} visible={props.visible}>
@@ -55,7 +75,7 @@ export default function ImagePickerModal(props: ImagePickerModalProps) {
             <Text className="text-white">Foto Galeria</Text>
           </TouchableHighlight>
           <TouchableHighlight
-            onPress={props.onClose}
+            onPress={takePhoto}
             className="flex-1 h-12 ml-1 flex justify-center items-center text-md rounded-md bg-slate-800 text-white"
           >
             <Text className="text-white">Tirar Foto</Text>
@@ -85,7 +105,7 @@ export default function ImagePickerModal(props: ImagePickerModalProps) {
         </ScrollView>
         <View className="flex flex-col">
           <TouchableHighlight
-            onPress={props.onClose}
+            onPress={handleUpdateImages}
             className="w-full h-12 flex justify-center items-center text-md rounded-md bg-slate-800 text-white"
           >
             <Text className="text-white">Concluído</Text>

@@ -8,12 +8,14 @@ import {
   Modal,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { db } from "@/configs/firebase";
+import { db, storage } from "@/configs/firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useRouter } from "expo-router";
 import Toast from "react-native-toast-message";
 import { useMutation } from "@tanstack/react-query";
 import ImagePickerModal from "@/app/components/ImagePickerModal";
+import { useQueryClient } from "@tanstack/react-query";
 
 type FormData = {
   spotName: string;
@@ -23,6 +25,7 @@ type FormData = {
 };
 
 export default function AddSpotScreen() {
+  const queryClient = useQueryClient();
   const [status, setStatus] = React.useState(false);
   const [modalOpen, setModalOpen] = React.useState(false);
   const [selectedImages, setSelectedImages] = React.useState<string[]>([]);
@@ -34,15 +37,28 @@ export default function AddSpotScreen() {
     formState: { errors },
   } = useForm<FormData>();
 
+  const uploadImage = async (uri: string) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    const filename = uri.substring(uri.lastIndexOf("/") + 1);
+    const storageRef = ref(storage, `spots/${filename}`);
+    await uploadBytes(storageRef, blob);
+    return await getDownloadURL(storageRef);
+  };
+
   const mutation = useMutation({
     mutationKey: ["post-spot"],
     mutationFn: async (data: FormData) => {
       setStatus(true);
+      const uploadPromises = selectedImages.map(uploadImage);
+      const uploadImageUrls = await Promise.all(uploadPromises);
       await addDoc(collection(db, "spot"), {
         spotName: data.spotName,
         street: data.street,
         city: data.city,
         state: data.state,
+        imageUrls: uploadImageUrls,
+        createdAt: new Date(),
       });
     },
     onSuccess: () => {
@@ -52,6 +68,7 @@ export default function AddSpotScreen() {
         text1: "Cadastro",
         text2: "Spot cadastrado com sucesso! 😉",
       });
+      queryClient.refetchQueries({ queryKey: ["list-spots"] });
       router.back();
     },
     onError: () => {
@@ -63,18 +80,14 @@ export default function AddSpotScreen() {
     },
   });
 
-  function handleImagesSelected() {
-    console.log("ENTROU AQUI");
-  }
-
   return (
     <View className="flex-1 items-center justify-center bg-white dark:bg-slate-700">
       <ImagePickerModal
         visible={modalOpen}
         onClose={() => setModalOpen(false)}
-        onImageSelected={handleImagesSelected}
+        onImageSelected={setSelectedImages}
       />
-      <View className="flex flex-col p-10 w-full">
+      <View className="flex flex-col p-10 w-full -mt-20">
         <Controller
           name="spotName"
           control={control}
@@ -206,7 +219,9 @@ export default function AddSpotScreen() {
           onPress={() => setModalOpen(true)}
         >
           <Text className="text-white text-center font-semibold">
-            Escolher fotos do Spot
+            {selectedImages.length === 0
+              ? "Escolher fotos do Spot"
+              : `Imagens selecionadas (${selectedImages.length})`}
           </Text>
         </TouchableHighlight>
         <TouchableHighlight

@@ -10,7 +10,7 @@ export default function ExploreLayout() {
     >
       <Stack.Screen
         name="index"
-        options={{ headerShown: false }}
+        options={{ headerShown: true, title: "Lista de Spots" }}
       ></Stack.Screen>
       <Stack.Screen
         name="add-spot"
