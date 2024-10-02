@@ -1,50 +1,51 @@
-# Welcome to your Expo app 👋
+# Bem-vindo ao Aplicativo de Spots de Skate 🛹
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Este é um repositório público de um aplicativo para gravar spots de skate pelo Brasil, desenvolvido com [Expo](https://expo.dev) e criado como projeto educacional para a escola Elaborata.
 
-## Get started
+## Importante para Recrutadores e Contratantes ⚠️
 
-1. Install dependencies
+**Por favor, note que este projeto serve principalmente como uma ferramenta de ensino para iniciantes em React Native.** As técnicas aplicadas aqui são intencionalmente básicas e não refletem necessariamente as melhores práticas profissionais de desenvolvimento. O foco está em proporcionar uma introdução acessível ao React e React Native para alunos sem experiência prévia.
 
+## Começando
+
+1. Instale as dependências
    ```bash
    npm install
    ```
 
-2. Start the app
-
+2. Inicie o aplicativo
    ```bash
-    npx expo start
+   npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+Na saída, você encontrará opções para abrir o aplicativo em:
+- [Build de desenvolvimento](https://docs.expo.dev/develop/development-builds/introduction/)
+- [Emulador Android](https://docs.expo.dev/workflow/android-studio-emulator/)
+- [Simulador iOS](https://docs.expo.dev/workflow/ios-simulator/)
+- [Expo Go](https://expo.dev/go), um ambiente limitado para experimentar o desenvolvimento de aplicativos com Expo
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+Você pode começar a desenvolver editando os arquivos dentro do diretório **app**. Este projeto usa [roteamento baseado em arquivos](https://docs.expo.dev/router/introduction).
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Estrutura do Projeto
 
-## Get a fresh project
+O código principal está localizado no diretório **app**. A estrutura é mantida simples para facilitar o aprendizado dos alunos iniciantes.
 
-When you're ready, run:
+## Objetivo Educacional
 
-```bash
-npm run reset-project
-```
+Este projeto foi criado como parte do curso de React Native na escola Elaborata. Ele serve como uma introdução prática ao desenvolvimento de aplicativos móveis, focando em conceitos fundamentais e funcionalidades básicas.
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Aprendendo Mais
 
-## Learn more
+Para aprender mais sobre o desenvolvimento com Expo, consulte os seguintes recursos:
+- [Documentação do Expo](https://docs.expo.dev/)
+- [Tutorial Learn Expo](https://docs.expo.dev/tutorial/introduction/)
 
-To learn more about developing your project with Expo, look at the following resources:
+## Contribuições
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Embora este seja um projeto educacional, contribuições e sugestões são bem-vindas. Sinta-se à vontade para abrir issues ou pull requests se tiver ideias para melhorar o aplicativo ou o material de ensino.
 
-## Join the community
+## Contato
 
-Join our community of developers creating universal apps.
+Para mais informações sobre o curso ou o projeto, entre em contato com a escola Elaborata.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Divirta-se explorando o mundo dos spots de skate pelo Brasil! 🛹🇧🇷
