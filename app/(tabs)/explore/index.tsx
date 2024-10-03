@@ -14,9 +14,12 @@ import { db } from "@/configs/firebase";
 import React from "react";
 import { Href } from "expo-router";
 import { Image } from "expo-image";
-import { Plus, Trash2 } from "lucide-react-native";
+// import { Plus, Trash2 } from "lucide-react-native";
 import { useQueryClient } from "@tanstack/react-query";
 import Toast from "react-native-toast-message";
+import Entypo from "@expo/vector-icons/Entypo";
+import Feather from "@expo/vector-icons/Feather";
+import DeleteButton from "@/app/components/DeleteButton";
 
 type Spot = {
   id: string;
@@ -82,12 +85,12 @@ const SpotCard = React.memo(
             <Text className="text-sm font-bold text-slate-700">
               {item.street}- {item.city}/{item.state}
             </Text>
-            <TouchableHighlight
+            {/* <TouchableHighlight
               className="bg-red-500 rounded-md mt-4"
               onPress={handleDelete}
             >
               <View className="flex flex-row justify-center items-center h-10">
-                <Trash2 size={20} color="white" />
+                <Feather name="trash-2" size={24} color="white" />
                 {!isDeleting ? (
                   <Text className="ml-2 text-white font-semibold">
                     Excluir spot
@@ -96,7 +99,8 @@ const SpotCard = React.memo(
                   <ActivityIndicator color="white" />
                 )}
               </View>
-            </TouchableHighlight>
+            </TouchableHighlight> */}
+            <DeleteButton isDeleting={isDeleting} onPress={handleDelete} />
           </View>
         </View>
       </TouchableHighlight>
@@ -204,7 +208,7 @@ export default function ExploreScreen() {
         onPress={() => router.push("/explore/add-spot")}
         className="absolute bottom-24 right-8 bg-purple-700 rounded-full w-20 h-20 flex justify-center items-center"
       >
-        <Plus color="white" size={32} />
+        <Entypo name="plus" size={24} color="white" />
       </TouchableHighlight>
     </View>
   );
